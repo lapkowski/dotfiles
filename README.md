@@ -16,6 +16,10 @@ Clone the repository and run the setup.pl file
 > [!NOTE]
 > You might want to modify the [target file](targets/debian.pl) to change which software to install
 
+## License
+
+All files in this repository are licensed under the [MIT-0](LICENSE) license unless stated otherwise.
+
 ## Special thanks
 
 * https://gitlab.com/Nmoleo/i3-volume-brightness-indicator
