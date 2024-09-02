@@ -1,0 +1,464 @@
+# i3 Configuration File
+# Last modified: 2025-09-01
+
+set $mod Mod4
+font pango:JetBrainsMono Nerd Font 10
+popup_during_fullscreen ignore
+
+###############################################################################
+## App definitions
+###############################################################################
+
+set $locker                 i3lock -c 000000
+
+set $terminal 	            alacritty
+set $filemgr	            thunar
+set $launcher	            rofi -show run
+set $d_launcher	            rofi -show drun
+
+set $browser			    flatpak run io.gitlab.librewolf-community
+set $browser_incognito		flatpak run io.gitlab.librewolf-community --private-window
+set $secondary_browser		flatpak run io.github.ungoogled_software.ungoogled_chromium
+set $mail_client		    flatpak run com.tutanota.Tutanota
+set $secondary_mail_client 	flatpak run org.mozilla.Thunderbird
+set $torrent_client		    flatpak run org.qbittorrent.qBittorrent
+set $discord			    flatpak run com.discordapp.Discord
+set $torbrowser             flatpak run org.torproject.torbrowser-launcher
+set $matrix                 flatpak run in.cinny.Cinny
+set $pidgin                 flatpak run im.pidgin.Pidgin
+set $whatsapp               flatpak run com.rtosta.zapzap
+
+set $gimp                   gimp
+set $zathura                zathura
+set $thunar                 thunar
+set $pavucontrol            pavucontrol
+set $engrampa               engrampa
+set $libreoffice-writer     flatpak run org.libreoffice.LibreOffice --writer
+set $libreoffice            flatpak run org.libreoffice.LibreOffice
+set $vlc                    vlc
+set $audacity               audacity
+set $inkscape               inkscape
+set $obs                    obs
+set $calculator             speedcrunch
+set $kdeconnect-app         kdeconnnect-app
+set $android-studio         flatpak run com.google.AndroidStudio
+set $github-desktop         flatpak run io.github.shiftey.Desktop
+set $virt-manager           virt-manager
+set $czkawka                flatpak run com.github.qarmin.czkawka
+set $filezilla              filezilla
+set $blueman                blueman-manager
+
+set $steam                  flatpak run com.valvesoftware.Steam
+set $prismlauncher          flatpak run org.prismlauncher.PrismLauncher
+set $2048                   gnome-2048
+
+set $screenshot-gui         flameshot gui
+set $screenshot-screen      flameshot screen
+set $screenshot-full        flameshot full
+
+###############################################################################
+## Autostart and scrachpad apps
+###############################################################################
+
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id dbus-update-activation-enviroent --all
+exec --no-startup-id gnome-keyring-daemon -r -d
+exec --no-startup-id mate-polkit
+
+# Lock before suspend
+exec --no-startup-id xss-lock --transfer-sleep-lock -- $locker --nofork
+
+exec feh --bg-tile ~/.bitmap.png
+
+exec --no-startup-id alacritty --class cmus -e cmus
+bindsym $mod+p [class="cmus"] scratchpad show
+bindsym $mod+Shift+p exec --no-startup-id alacritty --class cmus -e cmus
+
+exec --no-startup-id keepassxc
+
+exec --no-startup-id $pavucontrol
+
+exec --no-startup-id blueman-tray
+
+exec --no-startup-id $blueman
+
+set $refresh_i3status killall -SIGUSR1 i3status
+
+###############################################################################
+## Keybinds
+###############################################################################
+
+# Media Keys
+bindsym XF86AudioRaiseVolume 	exec --no-startup-id ~/.config/i3/volume_brightness.sh volume_up
+bindsym XF86AudioLowerVolume 	exec --no-startup-id ~/.config/i3/volume_brightness.sh volume_down
+bindsym XF86AudioMute 		    exec --no-startup-id ~/.config/i3/volume_brightness.sh volume_mute
+bindsym XF86AudioMicMute 	    exec --no-startup-id ~/.config/i3/volume_brightness.sh mic_mute
+
+bindsym XF86MonBrightnessUp 	exec --no-startup-id ~/.config/i3/volume_brightness.sh brightness_up
+bindsym XF86MonBrightnessDown 	exec --no-startup-id ~/.config/i3/volume_brightness.sh brightness_down
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+bindsym $mod+Return 	exec $terminal
+bindsym $mod+d 		    exec --no-startup-id $launcher
+bindsym $mod+Shift+d 	exec --no-startup-id $d_launcher
+
+bindsym $mod+Mod1+Return exec --no-startup-id dunstctl context
+
+bindsym $mod+x exec $locker
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+Mod1+f move workspace to output right
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+c split h
+bindsym $mod+v split v
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+
+# Development (tmux, AStudio)
+set $ws1 "1"
+# Internet browsing
+set $ws2 "2"
+# Random
+set $ws3 "3"
+# Random
+set $ws4 "4"
+# School
+set $ws5 "5"
+# System
+set $ws6 "6"
+# Mail
+set $ws7 "7"
+# Gaming
+set $ws8 "8"
+# OBS
+set $ws9 "9"
+# Messengers
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7; layout tabbed
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10; layout tabbed
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exit
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # Back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+b mode "internet"
+
+mode "internet" {
+	bindsym b exec $browser; mode "default"
+	bindsym i exec $browser_incognito; mode "default"
+	bindsym c exec $secondary_browser; mode "default"
+	bindsym t exec $mail_client; mode "default"
+	bindsym m exec $secondary_mail_client; mode "default"
+	bindsym r exec $torrent_client; mode "default"
+	bindsym d exec $discord; mode "default"
+    bindsym z exec $zoom; mode "default"
+    bindsym o exec $torbrowser; mode "default"
+    bindsym a exec $matrix; mode "default"
+    bindsym p exec $pidgin; mode "default"
+    bindsym w exec $whatsapp; mode "default"
+
+	bindsym Escape mode "default"
+	bindsym $mod+b mode "default"
+}
+
+bindsym $mod+a mode "applications"
+
+# Flatseal (N)
+mode "applications" {
+    bindsym k [class="KeePassXC"] scratchpad show; mode "default"
+    bindsym Shift+k exec --no-startup-id keepassxc; mode "default"
+
+    bindsym g exec $gimp; mode "default"
+	bindsym z exec $zathura; mode "default"
+	bindsym t exec $thunar; mode "default"
+
+    bindsym p [class="Pavucontrol"] scratchpad show; mode "default"
+    bindsym Shift+p exec --no-startup-id $pavucontrol; mode "default"
+
+	bindsym e exec $engrampa; mode "default"
+	bindsym r exec $libreoffice-writer; mode "default"
+	bindsym l exec $libreoffice; mode "default"
+	bindsym v exec $vlc; mode "default"
+	bindsym d exec $kdenlive; mode "default"
+	bindsym a exec $audacity; mode "default"
+	bindsym i exec $inkscape; mode "default"
+	bindsym o exec $obs; mode "default"
+	bindsym c exec $calculator; mode "default"
+	bindsym s exec $kdeconnect-app; mode "default"
+	bindsym n exec $android-studio; mode "default"
+	bindsym h exec $github-desktop; mode "default"
+	bindsym q exec $virt-manager; mode "default"
+
+    bindsym b [class="Blueman-manager"] scratchpad show; mode "default"
+    bindsym Shift+b exec --no-startup-id $blueman; mode "default"
+
+	bindsym e exec $czkawka; mode "default"
+    bindsym f exec $filezilla; mode "default"
+
+	bindsym Escape mode "default"
+	bindsym $mod+a mode "default"
+}
+
+bindsym $mod+g mode "games"
+
+mode "games" {
+    bindsym s exec $steam; mode "default"
+    bindsym p exec $prismlauncher; mode "default"
+    bindsym t exec $2048; mode "default"
+
+	bindsym Escape mode "default"
+	bindsym $mod+g mode "default"
+}
+
+bindsym Print mode "screenshot"
+
+mode "screenshot" {
+    bindsym g exec $screenshot-gui; mode "default"
+    bindsym s exec $screenshot-screen; mode "default"
+    bindsym f exec $screenshot-full; mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Print mode "screenshot"
+}
+
+bindsym $mod+r mode "resize"
+
+###############################################################################
+## Window rules
+###############################################################################
+
+for_window [class=".*"] border pixel 3
+
+for_window [class="KeePassXC"],       move scratchpad
+for_window [class="cmus"],            move scratchpad
+for_window [class="Pavucontrol"],     move scratchpad
+for_window [class="Blueman-manager"], move scratchpad
+
+for_window [class="LibreWolf"],         move container to workspace number $ws2
+for_window [class="jetbrains-studio"],  move container to workspace number $ws1
+for_window [class="Github Desktop"],    move container to workspace number $ws1
+for_window [class="zoom"],              move container to workspace number $ws5
+for_window [class="BleachBit"],         move container to workspace number $ws6
+for_window [class="thunderbird-esr"],   move container to workspace number $ws7
+for_window [class="tutanota-desktop"],  move container to workspace number $ws7
+for_window [class="PrismLauncher"],     move container to workspace number $ws8
+for_window [class="Minecraft*"],        move container to workspace number $ws8
+for_window [class="steam"],             move container to workspace number $ws8
+for_window [class="obs"],               move container to workspace number $ws9
+for_window [class="discord"],           move container to workspace number $ws10
+for_window [class="Pidgin"],            move container to workspace number $ws10
+for_window [class="Cinny"],             move container to workspace number $ws10
+for_window [class="ZapZap"],            move container to workspace number $ws10
+
+for_window [class="Blueman-manager"],   floating enable
+for_window [class="Arandr"],            floating enable
+for_window [class="obs"],               fullscreen enable
+for_window [class="LibreWolf"],         fullscreen enable
+
+###############################################################################
+## Colors (Taken from https://github.com/rebelot/kanagawa.nvim/blob/master/extras/kanagawa.sway)
+###############################################################################
+
+# Default foreground
+set $fujiWhite      #DCD7BA
+
+# Dark foreground (statuslines)
+set $oldWhite 	    #C8C093
+
+# Dark background (statuslines and floating windows)
+set $sumiInk0 	    #16161D
+
+# Default background
+set $sumiInk1 	    #1F1F28
+
+# Lighter background (colorcolumn, folds)
+set $sumiInk2 	    #2A2A37
+
+# Lighter background (cursorline)
+set $sumiInk3 	    #363646
+
+# Darker foreground (line numbers, fold column, non-text characters), float borders
+set $sumiInk4 	    #54546D
+
+# Popup background, visual selection background
+set $waveBlue1 	    #223249
+
+# Popup selection background, search background
+set $waveBlue2 	    #2D4F67
+
+# Diff Add (background)
+set $winterGreen    #2B3328
+
+# Diff Change (background)
+set $winterYellow   #49443C
+
+# Diff Deleted (background)
+set $winterRed 	    #43242B
+
+# Diff Line (background)
+set $winterBlue     #252535
+
+# Git Add
+set $autumnGreen    #76946A
+
+# Git Delete
+set $autumnRed 	    #C34043
+
+# Git Change
+set $autumnYellow   #DCA561
+
+# Diagnostic Error
+set $samuraiRed     #E82424
+
+# Diagnostic Warning
+set $roninYellow    #FF9E3B
+
+# Diagnostic Info
+set $waveAqua1 	    #6A9589
+
+# Diagnostic Hint
+set $dragonBlue     #658594
+
+# Comments
+set $fujiGray 	    #727169
+
+# Light foreground
+set $springViolet1  #938AA9
+
+# Statements and Keywords
+set $oniViolet 	    #957FB8
+
+# Functions and Titles
+set $crystalBlue    #7E9CD8
+
+# Brackets and punctuation
+set $springViolet2  #9CABCA
+
+# Specials and builtin functions
+set $springBlue     #7FB4CA
+
+# Not used
+set $lightBlue 	    #A3D4D5
+
+# Types
+set $waveAqua2 	    #7AA89F
+
+# Strings
+set $springGreen    #98BB6C
+
+# Not used
+set $boatYellow1    #938056
+
+# Operators, RegEx
+set $boatYellow2    #C0A36E
+
+# Identifiers
+set $carpYellow     #E6C384
+
+# Numbers
+set $sakuraPink     #D27E99
+
+# Standout specials 1 (builtin variables)
+set $waveRed 	    #E46876
+
+# Standout specials 2 (exception handling, return)
+set $peachRed 	    #FF5D62
+
+# Constants, imports, booleans
+set $surimiOrange   #FFA066
+
+# Deprecated
+set $katanaGray     #717C7C
+
+# Start i3bar to display a workspace bar (plus the system information i3status finds out, if available)
+bar {
+    status_command i3status
+	position top
+    separator_symbol " | "
+
+    colors {
+            background          $sumiInk0
+            statusline          $fujiWhite
+            separator           $oldWhite
+
+            focused_workspace   $oldWhite   $SumiInk4   $fujiWhite
+            active_workspace    $sumiInk2   $SumiInk3   $fujiWhite
+            inactive_workspace  $sumiInk2   $sumiInk1   $oldWhite
+            urgent_workspace    $samuraiRed $autumnRed  $fujiWhite
+            binding_mode        $oldWhite   $waveBlue1  $fujiWhite
+    }
+}
+
+client.focused          $SumiInk4   $SumiInk4   $fujiWhite
+client.focused_inactive $SumiInk3   $SumiInk3   $fujiWhite
+client.unfocused        $sumiInk1   $SumiInk0   $oldWhite
+client.urgent           $samuraiRed $samuraiRed $fujiWhite

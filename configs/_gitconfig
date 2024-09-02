@@ -1,0 +1,28 @@
+# Git config
+# Last modified: 2024-08-02
+
+[include]
+    path = .gituser
+
+[core]
+    editor = nvim
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[alias]
+    cl = clone
+    cn = clone --depth 1
+    co = checkout
+    cm = commit
+    st = status
+    br = branch
+    di = diff
+    fp = fetch --prune
+    rb = rebase
+    hist = log --graph --abbrev-commit --decorate --date=short --format=format:'%C(bold cyan)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset) %C(bold yellow)%d%C(reset)' --branches --remotes --tags
+    git = !cd -- ${GIT_PREFIX:-.} && git
+    gti = git

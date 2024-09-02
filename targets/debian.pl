@@ -1,0 +1,135 @@
+# OpenBSD Target
+$syscmd_reboot = "/sbin/reboot";
+$syscmd_privileged = "auto";
+@syscmd_install_package = ("apt", "install", "-y");
+$sys_install_nix = 1;
+$sys_install_nix_as_package = 0;
+$sys_install_nix_with_daemon = 1;
+
+@sys_nix_packages = (
+    "dotnet-sdk",
+    "eza",
+    "glow",
+    "neovim",
+    "nodejs",
+    "quickemu",
+    "rustup",
+    "starship",
+    "topgrade",
+    "yt-dlp",
+    "zoxide"
+);
+
+@sys_packages = (
+    "alacritty",
+    "android-platform-tools-base", 
+    "apt-listchanges", 
+    "autorandr", 
+    "bash", 
+    "beep", 
+    "bind9-dnsutils", 
+    "bleachbit", 
+    "blueman", 
+    "bluez-firmware", 
+    "bsdutils", 
+    "clangd", 
+    "cloc", 
+    "cmake", 
+    "compton", 
+    "diffutils", 
+    "dmg2img", 
+    "dosbox", 
+    "entr", 
+    "fastboot", 
+    "feh", 
+    "filezilla", 
+    "findutils", 
+    "fish",
+    "arandr",
+    "flameshot", 
+    "golang", 
+    "grep", 
+    "hostname", 
+    "htop", 
+    "i3", 
+    "inetutils-telnet", 
+    "init", 
+    "iputils-ping", 
+    "keepassxc", 
+    "libboost-regex1.74.0", 
+    "libgstreamer-plugins-base1.0-dev", 
+    "libnotify-bin", 
+    "libssl-dev", 
+    "light", 
+    "mate-polkit-bin", 
+    "mawk", 
+    "meson", 
+    "nala", 
+    "netcat-traditional", 
+    "oathtool", 
+    "obs-studio", 
+    "ocaml-base", 
+    "picard", 
+    "picom", 
+    "playerctl", 
+    "python3-cffi-backend", 
+    "python3-dataclasses-json", 
+    "python3-intervaltree", 
+    "python3-jupyter-server", 
+    "python3-tabulate", 
+    "rofi", 
+    "sdkmanager", 
+    "simple-scan", 
+    "sox", 
+    "speedcrunch", 
+    "spice-client-gtk", 
+    "tmux", 
+    "traceroute", 
+    "u2f-host", 
+    "unattended-upgrades", 
+    "wmctrl", 
+    "xbacklight", 
+    "xinit", 
+    "xwallpaper", 
+    "yubikey-manager",
+    "unzip",
+    "python3-venv",
+    "opam",
+    "gtk2-engines-mutter",
+    "gnome-tweaks",
+    "pavucontrol"
+);
+
+@sys_flatpak_packages = (
+    "com.discordapp.Discord", 
+    "com.github.qarmin.czkawka", 
+    "com.github.tchx84.Flatseal", 
+    "com.google.AndroidStudio", 
+    "com.rtosta.zapzap", 
+    "com.tutanota.Tutanota", 
+    "com.valvesoftware.Steam", 
+    "im.pidgin.Pidgin", 
+    "in.cinny.Cinny", 
+    "io.github.shiftey.Desktop", 
+    "io.github.ungoogled_software.ungoogled_chromium", 
+    "io.gitlab.librewolf-community", 
+    "org.libreoffice.LibreOffice", 
+    "org.mozilla.Thunderbird", 
+    "org.mozilla.firefox", 
+    "org.prismlauncher.PrismLauncher", 
+    "org.qbittorrent.qBittorrent", 
+    "org.torproject.torbrowser-launcher", 
+    "us.zoom.Zoom"
+);
+
+$sys_install_flatpak = 1;
+$sys_install_flatpak_package = "flatpak";
+
+@browser_extensions = (
+	"vimium-ff",
+	"sidebery",
+	"darkreader",
+	"user-agent-string-switcher",
+	"auto-tab-discard",
+    "kanagawa-theme"
+)

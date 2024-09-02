@@ -1,0 +1,171 @@
+# Starship configuration file
+# Last modified: 31-07-2024
+# Based on: https://gist.github.com/sanmue/f0ed97bed95c7bc7926cc3a88949bd39
+
+format = """
+[╭╴](fg:#505050)\
+$os\
+$username\
+$hostname\
+$sudo\
+$directory\
+$nix_shell\
+$git_branch$git_commit$git_state$git_metrics$git_status\
+$memory_usage\
+[ ](fg:#242424)\
+$cmd_duration\
+$line_break\
+[╰╴](fg:#505050)\
+[$status\
+$localip\
+$jobs\
+$character]($style)
+"""
+
+add_newline = true
+
+[os]
+format = "[$symbol ]($style)()"
+style = "fg:#AAAAAA"
+disabled = false
+
+[os.symbols]
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = ""
+CentOS = ""
+Debian = ""
+EndeavourOS = ""
+Fedora = ""
+FreeBSD = ""
+Garuda = ""
+Gentoo = ""
+Linux = ""
+Macos = ""
+Manjaro = ""
+Mariner = ""
+Mint = ""
+NetBSD = ""
+NixOS = ""
+OpenBSD = ""
+OpenCloudOS = "☁️"
+openEuler = ""
+openSUSE = ""
+OracleLinux = "⊂⊃"
+Pop = ""
+Raspbian = ""
+Redhat = ""
+RedHatEnterprise = ""
+Solus = ""
+SUSE = ""
+Ubuntu = ""
+Unknown = ""
+Windows = ""
+
+[username]
+format = '[> ](fg:green bold)[$user]($style)[ ]()'
+style_user = 'fg:green bold'
+style_root = 'fg:red bold'
+show_always = false
+disabled = false
+
+[hostname]
+format = '[$ssh_symbol ](fg:green bold)[$hostname](fg:green bold)[ ]()'
+ssh_only = true
+ssh_symbol = ' '
+disabled = false
+
+[sudo]
+format = '[> ](fg:red bold)[as $symbol]($style)'
+style = 'fg:red bold'
+symbol = '  '
+disabled = false
+
+[directory]
+format = '[> ](fg:cyan bold)[$read_only]($read_only_style)[$repo_root]($repo_root_style)[$path]($style)'
+style = 'fg:cyan bold'
+home_symbol = ' ~'
+read_only = ' '
+read_only_style = 'fg:cyan'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = true
+repo_root_format = '[> ](fg:cyan bold)[$read_only]($read_only_style)[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[ ]()'
+repo_root_style	= 'fg:cyan bold'
+use_os_path_sep = true
+disabled = false
+
+[git_branch]
+format = '[> $symbol $branch(:$remote_branch)]($style)[ ]()'
+style = 'fg:#E04D27'
+symbol = ''
+
+[git_commit]
+format = '[\($hash$tag\)]($style)[ ]()'
+style = 'fg:#E04D27'
+commit_hash_length = 8
+tag_symbol = ' '
+disabled = false
+
+[git_metrics]
+format = '[\[+$added/]($added_style)[-$deleted\]]($deleted_style)[ ]()'
+added_style = 'fg:#E04D27'
+deleted_style = 'fg:#E04D27'
+disabled = false
+
+[git_status]
+# place symbols before '$count'
+format = '([$all_status$ahead_behind]($style))'
+style = 'fg:#E04D27'
+conflicted = '[ ${count} ](fg:red)'
+ahead = '[⇡ ${count} ](fg:yellow)'
+behind = '[⇣ ${count} ](fg:yellow)'
+diverged = '[⇕ ${ahead_count}⇡${behind_count}⇣ ](fg:yellow)' # ⇕ ↕ ⇳ 󰹹 󰹺 󰧈 
+up_to_date = '[✓ ](fg:green)'
+untracked = '[󱘔 ${count} ](fg:red)'
+stashed = '[󰜦 ${count} ](fg:#A52A2A)'
+modified = '[󰷉 ${count} ](fg:#C8AC00)'
+staged = '[ ${count} ](fg:green)'
+renamed = '[󰑕 ${count} ](fg:yellow)'
+deleted = '[ ${count} ](fg:orange)'
+disabled = false
+
+[jobs]
+format = '[ $number$symbol]($style)'
+style = 'fg:blue'
+symbol = '󰣪 '
+symbol_threshold = 1
+number_threshold = 2
+disabled = false
+
+[memory_usage]
+format = '[ > ](fg:purple bold)[$symbol ${ram}  ${swap}]($style)'
+style = 'fg:purple'
+symbol = ''
+threshold = 75
+disabled = false
+
+[cmd_duration]
+format = '[<  $duration ]($style)'
+style = 'fg:yellow'
+min_time = 500
+disabled = false
+
+[status]
+format = '[$symbol$status ]($style)'
+style = 'fg:red'
+symbol = '✘ '
+disabled = false
+
+[localip]
+format = '[$localipv4 ](fg:green bold)'
+ssh_only = true
+disabled = false
+
+[nix_shell]
+disabled = false
+pure_msg = '[\(pure\)](bold green)'
+impure_msg = '[\(impure\)](bold green)'
+unknown_msg = ''
+format = '[ < ❄️ nix-shell $state](bold blue)'
