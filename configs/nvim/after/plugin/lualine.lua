@@ -48,6 +48,9 @@ condition.is_git_repo = function()
 end
 
 require("lualine").setup({
+    extensions = {
+        "aerial"
+    },
     options = {
         component_separators = "",
         section_separators = "",
@@ -77,6 +80,14 @@ require("lualine").setup({
                     unnamed     = "[No Name]",
                     newfile     = "[New]"
                 }
+            },
+            {
+                "aerial",
+                sep       = " ",
+                depth     = nil,
+                dense     = false,
+                dense_sep = ".",
+                colored   = true,
             }
         },
         lualine_x = {
@@ -124,6 +135,10 @@ require("lualine").setup({
                 "branch",
                 icon    = custom_icons.git_branch,
                 color   = { fg = theme.syn.parameter }
+            },
+            {
+                "location",
+                color   = { fg = theme.ui.fg_dim }
             },
             {
                 function() return " |" end,
