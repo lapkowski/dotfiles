@@ -83,7 +83,7 @@ require("lualine").setup({
             },
             {
                 "aerial",
-                sep       = " ",
+                sep       = "  ",
                 depth     = nil,
                 dense     = false,
                 dense_sep = ".",

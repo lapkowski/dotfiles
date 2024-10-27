@@ -704,6 +704,9 @@ eval $host_instructions;
 
 detect_syscmd_privileged();
 
+install_fonts();
+exit(0);
+
 if (!(step('', 'part2')))
 {
     my $accept = "";
